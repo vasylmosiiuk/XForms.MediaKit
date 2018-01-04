@@ -4,6 +4,9 @@ using Xamarin.Forms;
 
 namespace MediaKit.Core
 {
+    /// <summary>
+    ///     Structure, specifies duration of animation execution
+    /// </summary>
     [TypeConverter(typeof(DurationTypeConverter))]
     public struct Duration
     {
@@ -16,8 +19,16 @@ namespace MediaKit.Core
 
         private readonly DurationType _durationType;
         private readonly TimeSpan _timeSpan;
+
+        /// <summary>
+        ///     Flag, specifies does this duration has explicit <see cref="System.TimeSpan" /> value, defined as duration
+        /// </summary>
         public bool HasTimeSpan => _durationType == DurationType.TimeSpan;
 
+        /// <summary>
+        ///     Explicit <see cref="System.TimeSpan" /> value, defined as duration
+        /// </summary>
+        /// <exception cref="InvalidOperationException">If duration hasn't explicit TimeSpan defined</exception>
         public TimeSpan TimeSpan
         {
             get
@@ -28,6 +39,10 @@ namespace MediaKit.Core
             }
         }
 
+        /// <summary>
+        ///     Constructor, which allow to setup duration with <see cref="System.TimeSpan" /> value
+        /// </summary>
+        /// <param name="timeSpan">Explicit <see cref="System.TimeSpan" /> value, defined as duration</param>
         public Duration(TimeSpan timeSpan)
         {
             _timeSpan = timeSpan;
@@ -39,12 +54,24 @@ namespace MediaKit.Core
             _durationType = type;
         }
 
+        /// <summary>
+        ///     Automatically calculated duration
+        /// </summary>
         public static readonly Duration Automatic = new Duration(DurationType.Auto);
-        public static readonly Duration Forever = new Duration(DurationType.Forever);
 
+        /// <summary>
+        ///     Forever execution duration
+        /// </summary>
+        public static readonly Duration Forever = new Duration(DurationType.Forever);
+        
+        /// <summary>
+        /// <see cref="object.ToString"/> implementation
+        /// </summary>
+        /// <returns>String representation this <see cref="Duration"/> object</returns>
         public override string ToString()
         {
             if (HasTimeSpan)
+                // ReSharper disable once ImpureMethodCallOnReadonlyValueField
                 return _timeSpan.ToString();
             return _durationType == DurationType.Forever ? "Forever" : "Automatic";
         }

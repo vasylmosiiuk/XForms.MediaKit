@@ -2,21 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>LVM.MediaKit.Core</PackageId>
-    <PackageVersion>0.2.0.0</PackageVersion>
+    <Title>Xamarin Forms MediaKit core package</Title>
+    <PackageId>MediaKit.Core</PackageId>
+    <PackageVersion>0.3.0.0</PackageVersion>
     <Authors>Vasyl Mosiiuk</Authors>
-    <Description>Xamarin Forms MediaKit core package</Description>
+    <Description>Xamarin Forms package which allows use some common WPF/UWP features like XAML-defined animations, storyboards, etc...</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/vasylmosiiuk/XForms.MediaKit/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/vasylmosiiuk/XForms.MediaKit</PackageProjectUrl>
     <Copyright>Copyright 2018 (c) Vasyl Mosiiuk, mailto:vasyl.mosiiuk@gmail</Copyright>
-    <PackageTags>xamarin forms xaml animations</PackageTags>
+    <PackageTags>xamarin forms xaml mediakit visualstatemanager animations triggers storyboard</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.2.0.0</AssemblyVersion>
-    <FileVersion>0.2.0.0</FileVersion>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <FileVersion>0.3.0.0</FileVersion>
     <RepositoryUrl>https://github.com/vasylmosiiuk/XForms.MediaKit</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
+    <Version>0.3.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
