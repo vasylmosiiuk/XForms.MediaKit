@@ -3,24 +3,21 @@ using Xamarin.Forms;
 
 namespace MediaKit.Core.TypeConverters
 {
+    /// <summary>
+    ///     XAML type converter for <see cref="Duration" />
+    /// </summary>
     public class DurationTypeConverter : TypeConverter
     {
-        public override bool CanConvertFrom(Type sourceType)
-        {
-            return sourceType == typeof(string);
-        }
+        /// <param name="sourceType">The type to check.</param>
+        /// <summary>When implemented in a derived class, returns a Boolean value that indicates whether or not the derived type converter can convert <paramref name="sourceType" /> to its target type.</summary>
+        /// <returns>To be added.</returns>
+        /// <remarks>To be added.</remarks>
+        public override bool CanConvertFrom(Type sourceType) => sourceType == typeof(string);
 
-        public override object ConvertFromInvariantString(string value)
-        {
-            if (string.Compare(value, "Automatic", StringComparison.OrdinalIgnoreCase) == 0)
-                return Duration.Automatic;
-            if (string.Compare(value, "Forever", StringComparison.OrdinalIgnoreCase) == 0)
-                return Duration.Forever;
-
-            if (TimeSpan.TryParse(value, out var timeSpan))
-                return new Duration(timeSpan);
-
-            throw new InvalidOperationException($"Impossible to parse string \"{value??""}\" to Duration, possible values are: Automatic, Forever or timespan value");
-        }
+        /// <param name="value">The value to convert.</param>
+        /// <summary>When overriden in a derived class, converts XAML extension syntax into instances of various <see cref="N:Xamarin.Forms" /> types.</summary>
+        /// <returns>To be added.</returns>
+        /// <remarks>To be added.</remarks>
+        public override object ConvertFromInvariantString(string value) => Duration.Parse(value);
     }
 }
