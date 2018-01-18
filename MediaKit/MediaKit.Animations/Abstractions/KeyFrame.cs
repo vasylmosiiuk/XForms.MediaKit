@@ -18,7 +18,7 @@ namespace MediaKit.Animations.Abstractions
         /// <summary>
         ///     Timeline offset, when <see cref="IKeyFrame{TValue}.Value" /> should be started applying.
         /// </summary>
-        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public TimeSpan KeyTime
         {
             get => _keyTime;
@@ -32,7 +32,7 @@ namespace MediaKit.Animations.Abstractions
         /// <summary>
         ///     Value, which should be used.
         /// </summary>
-        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public TValue Value
         {
             get => _value;
@@ -46,7 +46,7 @@ namespace MediaKit.Animations.Abstractions
         /// <summary>
         ///     Flag, specifies, this object is in freezed state
         /// </summary>
-        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public bool IsApplied
         {
             get => _isApplied;

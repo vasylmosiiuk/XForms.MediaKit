@@ -113,7 +113,7 @@ namespace MediaKit.Animations
         /// <summary>
         ///     <see cref="Core.Duration" /> of animation execution
         /// </summary>
-        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
+        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
         public Duration Duration
         {
             get => _duration;

@@ -7,6 +7,10 @@ using Xamarin.Forms;
 
 namespace MediaKit.VisualStateManager
 {
+    /// <summary>
+    ///     Contains information about Name and actual VisualState and permitted to switches between available visual states
+    ///     with/without transition animations.
+    /// </summary>
     [ContentProperty(nameof(States))]
     public class VisualStateGroup : BindableObject, IApplicable
     {
@@ -14,14 +18,23 @@ namespace MediaKit.VisualStateManager
             BindableProperty.CreateReadOnly(nameof(Transitions), typeof(VisualTransitionCollection),
                 typeof(VisualStateGroup), null, defaultValueCreator: (_) => new VisualTransitionCollection());
 
+        /// <summary>
+        ///     Available explicit <see cref="VisualTransition" /> collection, used to animate transitions between visual states.
+        /// </summary>
         public static readonly BindableProperty TransitionsProperty = TransitionsPropertyKey.BindableProperty;
 
         private static readonly BindablePropertyKey StatesPropertyKey =
             BindableProperty.CreateReadOnly(nameof(States), typeof(VisualStateCollection), typeof(VisualStateGroup),
                 null, defaultValueCreator: (_) => new VisualStateCollection());
 
+        /// <summary>
+        ///     Available visual states, assigned to this visual states group.
+        /// </summary>
         public static readonly BindableProperty StatesProperty = StatesPropertyKey.BindableProperty;
 
+        /// <summary>
+        ///     Name, assigned to this visual states group.
+        /// </summary>
         public static readonly BindableProperty NameProperty =
             BindableProperty.Create(nameof(Name), typeof(string), typeof(VisualStateGroup), default(string),
                 propertyChanged: OnPropertyChanged);
@@ -30,34 +43,45 @@ namespace MediaKit.VisualStateManager
             nameof(CurrentState),
             typeof(VisualState), typeof(VisualStateGroup), default(VisualState));
 
+        /// <summary>
+        ///     <see cref="VisualState" />, which is active in scope of this visual state group.
+        /// </summary>
         public static readonly BindableProperty CurrentStateProperty = CurrentStatePropertyKey.BindableProperty;
+
         private readonly List<VisualTransition> _generatedTransitions = new List<VisualTransition>();
         private bool _isApplied;
 
+        /// <inheritdoc cref="CurrentStateProperty" />
         public VisualState CurrentState
         {
             get => (VisualState) GetValue(CurrentStateProperty);
             private set => SetValue(CurrentStatePropertyKey, value);
         }
 
+        /// <inheritdoc cref="StatesProperty" />
         public VisualStateCollection States
         {
             get => (VisualStateCollection) GetValue(StatesProperty);
             private set => SetValue(StatesPropertyKey, value);
         }
 
+        /// <inheritdoc cref="TransitionsProperty" />
         public VisualTransitionCollection Transitions
         {
             get => (VisualTransitionCollection) GetValue(TransitionsProperty);
             private set => SetValue(TransitionsPropertyKey, value);
         }
 
+        /// <inheritdoc cref="NameProperty" />
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public string Name
         {
             get => (string) GetValue(NameProperty);
             set => SetValue(NameProperty, value);
         }
 
+        /// <summary>Flag, specifies, this object is in freezed state</summary>
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public bool IsApplied
         {
             get => _isApplied;
@@ -68,6 +92,9 @@ namespace MediaKit.VisualStateManager
             }
         }
 
+        /// <summary>
+        ///     Method, which switches this object into freezed state
+        /// </summary>
         public void Apply()
         {
             Transitions.ForEach(x => x.ApplySafety());
@@ -78,8 +105,14 @@ namespace MediaKit.VisualStateManager
         private static void OnPropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
             ((IApplicable) bindable).ThrowIfApplied();
 
-
+        /// <summary>
+        ///     Invoked when visual states group started changing state.
+        /// </summary>
         public event EventHandler<VisualStateChangedEventArgs> CurrentStateChanging;
+
+        /// <summary>
+        ///     Invoked when visual state group changed state.
+        /// </summary>
         public event EventHandler<VisualStateChangedEventArgs> CurrentStateChanged;
 
         internal void GoToState(VisualElement root, VisualElement target, string stateName, bool useTransitions)
@@ -107,10 +140,10 @@ namespace MediaKit.VisualStateManager
 
             void RunAnimation()
             {
-                stateToSet.Storyboard.Begin(target, animationGroupHandler, (animation, x, cancelled) =>
+                stateToSet.Storyboard.Begin(target, animationGroupHandler, (s, args) =>
                 {
-                    if (cancelled)
-                        animation.GetCallback()(1.0);
+                    if (args.IsCancelled)
+                        args.Animation.GetCallback()(1.0);
                 });
             }
 
@@ -120,11 +153,11 @@ namespace MediaKit.VisualStateManager
                 transition = transition ?? GenerateVisualTransition(target, currentStateName, stateName);
                 if (transition?.Storyboard != null)
                 {
-                    void TransitionAnimationFinished(Animation animation, double x, bool cancelled)
+                    void TransitionAnimationFinished(Storyboard storyboard, StoryboardFinishedArgs args)
                     {
-                        if (cancelled)
+                        if (args.IsCancelled)
                         {
-                            animation.GetCallback()(1.0);
+                            args.Animation.GetCallback()(1.0);
                             return;
                         }
 
@@ -168,13 +201,21 @@ namespace MediaKit.VisualStateManager
             return transition;
         }
 
+        /// <summary>
+        ///     May be extended to return custom <see cref="Storyboard" /> object, which contains some transition animations
+        ///     between visual states.
+        /// </summary>
+        /// <param name="target">Animation's target visual.</param>
+        /// <param name="fromState">Visual state name, which is replacing with <paramref name="toState" />.</param>
+        /// <param name="toState">Visual state name, which will be activated after transition.</param>
+        /// <returns></returns>
         protected virtual Storyboard GenerateVisualTransitionStoryboard(VisualElement target, string fromState,
             string toState)
         {
             return new Storyboard();
         }
 
-        protected virtual VisualTransition ResolveVisualTransition(string fromVisualState, string toVisualState)
+        private VisualTransition ResolveVisualTransition(string fromVisualState, string toVisualState)
         {
             bool ExplicitTransitionsFilter(VisualTransition t) =>
                 t.From == fromVisualState || t.To == toVisualState || t.From == null && t.To == null;
@@ -190,7 +231,7 @@ namespace MediaKit.VisualStateManager
             return transition;
         }
 
-        protected virtual int CalculateTransitionWeight(VisualTransition transition, string fromVisualState,
+        private int CalculateTransitionWeight(VisualTransition transition, string fromVisualState,
             string toVisualState)
         {
             if (transition.From == null && transition.To == null)
@@ -205,17 +246,27 @@ namespace MediaKit.VisualStateManager
         }
     }
 
+    /// <summary>
+    ///     Collection, used to store sequence of <see cref="VisualState" /> objects.
+    /// </summary>
     public sealed class VisualStateCollection : List<VisualState>
     {
         internal VisualStateCollection(IEnumerable<VisualState> enumerable) : base(enumerable)
         {
         }
 
+        /// <summary>
+        ///     Creates an empty collection.
+        /// </summary>
         public VisualStateCollection()
         {
         }
     }
 
+
+    /// <summary>
+    ///     Collection, used to store sequence of <see cref="VisualTransition" /> objects.
+    /// </summary>
     public sealed class VisualTransitionCollection : List<VisualTransition>
     {
     }

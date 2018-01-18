@@ -30,7 +30,7 @@ namespace MediaKit.Animations
         /// <summary>
         /// Flag, marks should we interpolating <see cref="Color.A"/> also, or stay it as it was in <see cref="KeyFrameAnimationState{T}.StoredValue"/>.
         /// </summary>
-        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
+        /// <exception cref="InvalidOperationException">In case, object if freezed right now.</exception>
         public bool InterpolateAlpha
         {
             get => _interpolateAlpha;
