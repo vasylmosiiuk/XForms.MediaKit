@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediaKit.Core" Version="0.2.0" />
+    <PackageReference Include="MediaKit.Core" Version="0.3.0" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
   </ItemGroup>
 
