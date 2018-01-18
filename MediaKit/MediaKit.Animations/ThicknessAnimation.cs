@@ -3,8 +3,16 @@ using Xamarin.Forms;
 
 namespace MediaKit.Animations
 {
+    /// <summary>
+    /// Linear animation which proceed <see cref="Thickness"/> values.
+    /// </summary>
     public sealed class ThicknessAnimation : LinearPrimitiveAnimation<Thickness>
     {
+        /// <summary>
+        ///     Method, executed each animation step.
+        /// </summary>
+        /// <param name="x">Current X [0;1] value.</param>
+        /// <param name="state">Animation state object, created by <see cref="AnimationBase{TState}.StoreAnimationState" /> and returned.</param>
         protected override void Update(double x, LinearAnimationState<Thickness> state)
         {
             var from = state.From;

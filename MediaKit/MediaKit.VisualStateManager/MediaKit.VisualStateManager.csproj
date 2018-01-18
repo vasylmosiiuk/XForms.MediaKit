@@ -11,7 +11,7 @@
     <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/vasylmosiiuk/XForms.MediaKit/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/vasylmosiiuk/XForms.MediaKit</PackageProjectUrl>
-    <Copyright>Copyright 2018 (c) Vasyl Mosiiuk, mailto:vasyl.mosiiuk@gmail</Copyright>
+    <Copyright>Copyright 2018 (c) Vasyl Mosiiuk, mailto:vasyl.mosiiuk@gmail.com</Copyright>
     <PackageTags>xamarin forms xaml visualstatemanager visual state manager</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>0.2.0.0</AssemblyVersion>

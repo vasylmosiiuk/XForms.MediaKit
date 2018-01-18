@@ -2,12 +2,18 @@
 
 namespace MediaKit.Animations
 {
-    public class BooleanAnimationUsingKeyFrames : KeyFrameAnimation<bool>
+    /// <summary>
+    /// KeyFrame animation which proceed <see cref="bool"/> values.
+    /// </summary>
+    public sealed class BooleanAnimationUsingKeyFrames : KeyFrameAnimation<bool>
     {
 
     }
 
-    public class DiscreteBooleanKeyFrame : DiscreteKeyFrame<bool>
+    /// <summary>
+    /// Discrete animation key frame which maintain <see cref="bool"/> values.
+    /// </summary>
+    public sealed class DiscreteBooleanKeyFrame : DiscreteKeyFrame<bool>
     {
 
     }

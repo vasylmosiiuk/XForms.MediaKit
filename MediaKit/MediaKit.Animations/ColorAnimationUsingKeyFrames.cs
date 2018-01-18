@@ -5,18 +5,32 @@ using Xamarin.Forms;
 
 namespace MediaKit.Animations
 {
-    public class ColorAnimationUsingKeyFrames : KeyFrameAnimation<Color>
+    /// <summary>
+    /// KeyFrame animation which proceed <see cref="Color"/> values.
+    /// </summary>
+    public sealed class ColorAnimationUsingKeyFrames : KeyFrameAnimation<Color>
     {
     }
 
-    public class DiscreteColorKeyFrame : DiscreteKeyFrame<Color>
+    /// <summary>
+    /// Discrete animation key frame which maintain <see cref="Color"/> values.
+    /// </summary>
+    public sealed class DiscreteColorKeyFrame : DiscreteKeyFrame<Color>
     {
     }
 
-    public class LinearColorKeyFrame : LinearKeyFrame<Color>
+
+    /// <summary>
+    /// Linear animation key frame which maintain <see cref="Color"/> values.
+    /// </summary>
+    public sealed class LinearColorKeyFrame : LinearKeyFrame<Color>
     {
         private bool _interpolateAlpha;
 
+        /// <summary>
+        /// Flag, marks should we interpolating <see cref="Color.A"/> also, or stay it as it was in <see cref="KeyFrameAnimationState{T}.StoredValue"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
         public bool InterpolateAlpha
         {
             get => _interpolateAlpha;
@@ -27,6 +41,13 @@ namespace MediaKit.Animations
             }
         }
 
+        /// <summary>
+        ///     Returns interpolated value between <paramref name="initialValue" /> begin and
+        ///     <see cref="KeyFrame{TValue}.Value" />, with <paramref name="x" /> as interpolation position.
+        /// </summary>
+        /// <param name="x">Interpolation position, value in range [0;1].</param>
+        /// <param name="initialValue">Interpolation From value.</param>
+        /// <returns></returns>
         protected override Color GetInterpolatedValue(double x, Color initialValue)
         {
             var a = InterpolateAlpha ? initialValue.A + (Value.A - initialValue.A) * x : initialValue.A;

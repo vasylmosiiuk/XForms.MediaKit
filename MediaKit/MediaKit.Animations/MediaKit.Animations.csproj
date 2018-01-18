@@ -4,21 +4,21 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Title>Xamarin Forms MediaKit built in animations pack</Title>
     <PackageId>MediaKit.Animations</PackageId>
-    <PackageVersion>0.2.0.0</PackageVersion>
+    <PackageVersion>0.3.0.0</PackageVersion>
     <Authors>Vasyl Mosiiuk</Authors>
     <Description>A lot of common WPF/UWP animations, ported to allow their usage in Xamarin Forms</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/vasylmosiiuk/XForms.MediaKit/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/vasylmosiiuk/XForms.MediaKit</PackageProjectUrl>
-    <Copyright>Copyright 2018 (c) Vasyl Mosiiuk, mailto:vasyl.mosiiuk@gmail</Copyright>
+    <Copyright>Copyright 2018 (c) Vasyl Mosiiuk, mailto:vasyl.mosiiuk@gmail.com</Copyright>
     <PackageTags>xamarin forms xaml animations</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>0.5.0.0</AssemblyVersion>
-    <FileVersion>0.5.0.0</FileVersion>
+    <AssemblyVersion>0.3.0.0</AssemblyVersion>
+    <FileVersion>0.3.0.0</FileVersion>
     <RepositoryUrl>https://github.com/vasylmosiiuk/XForms.MediaKit</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -27,7 +27,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediaKit.Core" Version="0.2.0" />
+    <PackageReference Include="MediaKit.Core" Version="0.3.0" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
   </ItemGroup>
 

@@ -5,10 +5,17 @@ using Xamarin.Forms;
 
 namespace MediaKit.Animations
 {
-    public class ColorAnimation : LinearPrimitiveAnimation<Color>
+    /// <summary>
+    /// Linear animation which proceed <see cref="Color"/> values.
+    /// </summary>
+    public sealed class ColorAnimation : LinearPrimitiveAnimation<Color>
     {
         private bool _interpolateAlpha;
 
+        /// <summary>
+        /// Flag, marks should we interpolating <see cref="Color.A"/> also, or stay it as it was in <see cref="KeyFrameAnimationState{T}.StoredValue"/>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">In case, you try to set something.</exception>
         public bool InterpolateAlpha
         {
             get => _interpolateAlpha;
@@ -19,6 +26,11 @@ namespace MediaKit.Animations
             }
         }
 
+        /// <summary>
+        ///     Method, executed each animation step.
+        /// </summary>
+        /// <param name="x">Current X [0;1] value.</param>
+        /// <param name="state">Animation state object, created by <see cref="AnimationBase{TState}.StoreAnimationState" /> and returned.</param>
         protected override void Update(double x, LinearAnimationState<Color> state)
         {
             var a = InterpolateAlpha ? state.From.A + (To.A - state.From.A) * x : state.From.A;

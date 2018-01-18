@@ -2,11 +2,17 @@
 
 namespace MediaKit.Animations
 {
-    public class CharAnimationUsingKeyFrames : KeyFrameAnimation<char>
+    /// <summary>
+    /// KeyFrame animation which proceed <see cref="char"/> values.
+    /// </summary>
+    public sealed class CharAnimationUsingKeyFrames : KeyFrameAnimation<char>
     {
     }
 
-    public class DiscreteCharKeyFrame : DiscreteKeyFrame<char>
+    /// <summary>
+    /// Discrete animation key frame which maintain <see cref="char"/> values.
+    /// </summary>
+    public sealed class DiscreteCharKeyFrame : DiscreteKeyFrame<char>
     {
     }
 }
